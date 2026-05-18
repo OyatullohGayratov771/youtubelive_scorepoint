@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<title>Billiard Scoreboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  width:1920px;height:270px;
+  background:transparent;
+  overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:14px;
+}
+
+/* ══════════════════════════════════════════
+   MAIN BAR
+══════════════════════════════════════════ */
+#bar{
+  width:1860px;height:160px;
+  position:relative;
+  display:flex;align-items:stretch;
+  background:#07070a;
+  border:2px solid #c8a200;
+  box-shadow:
+    0 0 18px rgba(200,162,0,.55),
+    0 0 48px rgba(200,162,0,.14),
+    inset 0 0 90px rgba(0,0,0,.92);
+  border-radius:4px;
+  overflow:visible;
+}
+
+/* Corner L-brackets */
+.cb{position:absolute;width:20px;height:20px;border-color:#ffd700;border-style:solid;
+  box-shadow:0 0 10px rgba(255,215,0,.7);z-index:9}
+.cb.tl{top:-2px;left:-2px;border-width:3px 0 0 3px;border-radius:3px 0 0 0}
+.cb.tr{top:-2px;right:-2px;border-width:3px 3px 0 0;border-radius:0 3px 0 0}
+.cb.bl{bottom:-2px;left:-2px;border-width:0 0 3px 3px;border-radius:0 0 0 3px}
+.cb.br{bottom:-2px;right:-2px;border-width:0 3px 3px 0;border-radius:0 0 3px 0}
+
+/* Inner shimmer line (top only) */
+.sh{position:absolute;left:6%;right:6%;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,215,0,.22) 20%,rgba(255,215,0,.7) 50%,rgba(255,215,0,.22) 80%,transparent)}
+.sh-t{top:7px}.sh-b{display:none}
+
+/* Hex texture */
+#bar::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient( 60deg,rgba(255,255,255,.013) 0 1px,transparent 0 10px),
+    repeating-linear-gradient(-60deg,rgba(255,255,255,.013) 0 1px,transparent 0 10px)}
+
+/* ══════════════════════════════════════════
+   LEFT PANEL — RED
+══════════════════════════════════════════ */
+#lp{
+  flex:1;
+  position:relative;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 96px 0 42px;
+  clip-path:polygon(0 0,100% 0,86% 100%,0 100%);
+  z-index:2;
+}
+#lp::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,
+    #1a0000 0%,#4a0000 18%,#8b0000 42%,#aa0000 60%,#6e0000 82%,#250000 100%);
+  clip-path:inherit;
+}
+#lp::after{content:'';position:absolute;top:0;left:0;width:82%;height:2px;
+  background:linear-gradient(90deg,rgba(180,0,0,.4),rgba(255,80,30,1),transparent);opacity:.7}
+
+/* Player 1 name */
+#n1{
+  position:relative;z-index:2;
+  font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;
+  color:#ffe8e8;text-transform:uppercase;letter-spacing:.06em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;
+  text-shadow:0 0 22px rgba(255,60,0,.35),0 2px 5px rgba(0,0,0,.98);
+}
+
+/* Score group — right side of left panel */
+.sg-l{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:flex-end;
+  gap:2px;flex-shrink:0;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT PANEL — BLUE
+══════════════════════════════════════════ */
+#rp{
+  flex:1;
+  position:relative;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 42px 0 96px;
+  clip-path:polygon(14% 0,100% 0,100% 100%,0 100%);
+  z-index:2;
+}
+#rp::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(75deg,
+    #00061e 0%,#001560 12%,#003ab0 36%,#0055d4 55%,#1c44b8 76%,#0a1270 92%,#040b30 100%);
+  clip-path:inherit;
+}
+#rp::after{content:'';position:absolute;top:0;left:15%;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(0,140,255,1),rgba(100,185,255,.3));opacity:.7}
+
+/* Score group — left side of right panel */
+.sg-r{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:flex-start;
+  gap:2px;flex-shrink:0;
+}
+
+/* Player 2 name */
+#n2{
+  position:relative;z-index:2;
+  font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;
+  color:#e0eeff;text-transform:uppercase;letter-spacing:.06em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;
+  text-shadow:0 0 22px rgba(0,120,255,.38),0 2px 5px rgba(0,0,0,.98);
+  text-align:right;
+}
+
+/* ══════════════════════════════════════════
+   SCORE ROW INSIDE PANEL
+══════════════════════════════════════════ */
+.sr{
+  display:flex;align-items:baseline;gap:8px;
+  line-height:1;
+}
+
+/* "MATCH" / "FRAME" label */
+.slbl{
+  font-family:'Oswald',sans-serif;font-size:.62rem;font-weight:600;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.52);
+  flex-shrink:0;
+}
+
+/* Match games — BIG */
+.ms{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:6rem;line-height:.95;
+  color:#fff;
+  text-shadow:0 2px 0 rgba(0,0,0,.9),0 0 2px rgba(0,0,0,1);
+  transition:color .3s,transform .15s cubic-bezier(.34,1.56,.64,1),text-shadow .3s;
+  min-width:62px;
+}
+.sg-l .ms{text-align:right}
+.sg-r .ms{text-align:left}
+/* Panel-specific number glow */
+#lp .ms{text-shadow:0 0 28px rgba(255,90,50,.65),0 2px 0 rgba(0,0,0,.9)}
+#rp .ms{text-shadow:0 0 28px rgba(50,150,255,.65),0 2px 0 rgba(0,0,0,.9)}
+
+/* Frame score — SMALLER but clearly visible */
+.fs{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.4rem;line-height:1;
+  color:rgba(255,255,255,.9);
+  transition:color .3s,transform .12s cubic-bezier(.34,1.56,.64,1);
+  min-width:44px;
+}
+.sg-l .fs{text-align:right}
+.sg-r .fs{text-align:left}
+#lp .fs{text-shadow:0 0 14px rgba(255,90,50,.5),0 1px 0 rgba(0,0,0,.9)}
+#rp .fs{text-shadow:0 0 14px rgba(50,150,255,.5),0 1px 0 rgba(0,0,0,.9)}
+
+/* "pts" suffix for frame */
+.pts{
+  font-family:'Oswald',sans-serif;font-size:.65rem;font-weight:600;
+  letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;
+  flex-shrink:0;align-self:flex-end;padding-bottom:5px;
+}
+
+/* Animations */
+.bump-m{transform:scale(1.28)!important;color:#ffd700!important;
+  text-shadow:0 0 36px rgba(255,215,0,.9)!important}
+.bump-f{transform:scale(1.22)!important;color:#ffe566!important;
+  text-shadow:0 0 18px rgba(255,215,0,.7)!important}
+.gold{color:#ffd700!important;text-shadow:0 0 28px rgba(255,215,0,.8)!important}
+
+/* ══════════════════════════════════════════
+   CENTER LOGO — floats above bar
+══════════════════════════════════════════ */
+#logo-zone{
+  position:absolute;
+  left:50%;transform:translateX(-50%);
+  bottom:14px;
+  width:210px;
+  z-index:20;
+  display:flex;flex-direction:column;align-items:center;
+  pointer-events:none;
+}
+#logo-img{
+  display:block;width:210px;height:210px;object-fit:contain;
+  -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,black 86%,transparent 100%);
+  mask-image:radial-gradient(circle closest-side at 50% 50%,black 86%,transparent 100%);
+  filter:drop-shadow(0 0 16px rgba(255,215,0,.55)) drop-shadow(0 0 38px rgba(255,200,0,.14));
+}
+
+/* Race-to label (inside bar, below logo area) */
+#race-tag{
+  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+  font-family:'Oswald',sans-serif;font-size:.7rem;font-weight:600;
+  letter-spacing:.45em;color:rgba(210,172,0,.85);
+  text-transform:uppercase;white-space:nowrap;
+  text-shadow:0 0 12px rgba(200,162,0,.5);
+}
+
+/* ══════════════════════════════════════════
+   WINNER STATES
+══════════════════════════════════════════ */
+#bar.w1 #lp::before{
+  background:linear-gradient(108deg,
+    #1c0000 0%,#5e0000 14%,#b20000 38%,#d60000 56%,#8c0000 78%,#380000 100%)}
+#bar.w1 #n1{text-shadow:0 0 30px rgba(255,80,0,.65),0 2px 6px rgba(0,0,0,.9)}
+
+#bar.w2 #rp::before{
+  background:linear-gradient(72deg,
+    #001033 0%,#002277 10%,#0052ee 32%,#0066ff 52%,#2255dd 74%,#0d1a88 90%,#060d44 100%)}
+#bar.w2 #n2{text-shadow:0 0 30px rgba(0,150,255,.65),0 2px 6px rgba(0,0,0,.9)}
+
+/* ══════════════════════════════════════════
+   WINNER BANNER (slides from top)
+══════════════════════════════════════════ */
+#wb{
+  position:fixed;top:0;left:0;right:0;height:74px;
+  display:flex;align-items:center;justify-content:center;gap:22px;
+  background:linear-gradient(90deg,transparent 0%,rgba(4,4,4,.93) 10%,rgba(4,4,4,.97) 90%,transparent 100%);
+  border-bottom:1px solid rgba(255,215,0,.28);
+  opacity:0;transform:translateY(-100%);
+  transition:opacity .55s,transform .55s cubic-bezier(.34,1.56,.64,1);
+  z-index:50;
+}
+#wb.on{opacity:1;transform:translateY(0)}
+#wi{font-size:2.2rem;animation:ti .9s ease-in-out infinite alternate;line-height:1}
+@keyframes ti{to{transform:scale(1.2) rotate(8deg)}}
+#wg{display:flex;flex-direction:column;align-items:center;gap:2px}
+#wl{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:400;letter-spacing:.55em;color:#b8920a;text-transform:uppercase}
+#wn{font-family:'Oswald',sans-serif;font-size:2.1rem;font-weight:700;letter-spacing:.1em;color:#ffd700;text-transform:uppercase;
+  animation:gl 1s ease-in-out infinite alternate}
+@keyframes gl{from{text-shadow:0 0 10px rgba(255,215,0,.3)} to{text-shadow:0 0 42px rgba(255,215,0,.95),0 0 80px rgba(255,200,0,.22)}}
+
+/* Connection dot */
+#cd{position:fixed;bottom:7px;right:9px;width:8px;height:8px;border-radius:50%;
+  background:#3aaa3a;box-shadow:0 0 7px #3aaa3a;transition:background .3s,box-shadow .3s}
+#cd.off{background:#aa3a3a;box-shadow:0 0 7px #aa3a3a}
+</style>
+</head>
+<body>
+
+<!-- Winner banner -->
+<div id="wb">
+  <span id="wi">🏆</span>
+  <div id="wg">
+    <span id="wl">G ' O L I B</span>
+    <span id="wn">PLAYER</span>
+  </div>
+  <span id="wi">🏆</span>
+</div>
+
+<!-- SCOREBOARD BAR -->
+<div id="bar">
+
+  <!-- Decorations -->
+  <div class="sh sh-t"></div>
+  <div class="cb tl"></div><div class="cb tr"></div>
+  <div class="cb bl"></div><div class="cb br"></div>
+
+  <!-- LEFT — Red panel -->
+  <div id="lp">
+    <div id="n1">TEAM NAME</div>
+
+    <!-- Score group: MATCH (big) + FRAME (small) -->
+    <div class="sg-l">
+      <!-- Match games — main score -->
+      <div class="sr">
+        <span class="slbl">MATCH</span>
+        <span class="ms" id="s1">0</span>
+      </div>
+      <!-- Frame score — secondary -->
+      <div class="sr">
+        <span class="slbl">FRAME</span>
+        <span class="fs" id="fs1">0</span>
+        <span class="pts">pts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — Blue panel -->
+  <div id="rp">
+    <!-- Score group: MATCH (big) + FRAME (small) -->
+    <div class="sg-r">
+      <div class="sr">
+        <span class="ms" id="s2">0</span>
+        <span class="slbl">MATCH</span>
+      </div>
+      <div class="sr">
+        <span class="fs" id="fs2">0</span>
+        <span class="pts">pts</span>
+        <span class="slbl">FRAME</span>
+      </div>
+    </div>
+
+    <div id="n2">TEAM NAME</div>
+  </div>
+
+  <!-- CENTER LOGO -->
+  <div id="logo-zone">
+    <img id="logo-img" src="logo.jpg" alt="">
+    <div id="race-tag">RACE TO <span id="rt">7</span></div>
+  </div>
+
+</div>
+
+<div id="cd"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const E={
+  n1:$('n1'),n2:$('n2'),
+  s1:$('s1'),s2:$('s2'),
+  fs1:$('fs1'),fs2:$('fs2'),
+  rt:$('rt'),
+  bar:$('bar'),
+  wb:$('wb'),wn:$('wn'),
+  cd:$('cd'),
+};
+let prev={g1:0,g2:0,f1:0,f2:0};
+
+function render(st){
+  E.n1.textContent = st.player1_name.toUpperCase();
+  E.n2.textContent = st.player2_name.toUpperCase();
+  E.s1.textContent = st.player1_games;
+  E.s2.textContent = st.player2_games;
+  E.fs1.textContent= st.player1_frame_score;
+  E.fs2.textContent= st.player2_frame_score;
+  E.rt.textContent = st.race_to;
+
+  // Animate on change
+  if(st.player1_games!==prev.g1) bump(E.s1,'bump-m');
+  if(st.player2_games!==prev.g2) bump(E.s2,'bump-m');
+  if(st.player1_frame_score!==prev.f1) bump(E.fs1,'bump-f');
+  if(st.player2_frame_score!==prev.f2) bump(E.fs2,'bump-f');
+  prev={g1:st.player1_games,g2:st.player2_games,
+        f1:st.player1_frame_score,f2:st.player2_frame_score};
+
+  const p1w=st.winner&&st.winner===st.player1_name;
+  const p2w=st.winner&&st.winner===st.player2_name;
+  E.bar.className=p1w?'w1':p2w?'w2':'';
+  E.s1.classList.toggle('gold',!!p1w);
+  E.s2.classList.toggle('gold',!!p2w);
+
+  if(st.winner){
+    E.wn.textContent=st.winner.toUpperCase();
+    E.wb.classList.add('on');
+  } else {
+    E.wb.classList.remove('on');
+  }
+}
+
+function bump(el,cls){
+  el.classList.remove(cls);void el.offsetWidth;
+  el.classList.add(cls);
+  setTimeout(()=>el.classList.remove(cls),420);
+}
+
+function connect(){
+  const ws=new WebSocket((location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/ws');
+  ws.onopen=()=>E.cd.classList.remove('off');
+  ws.onmessage=e=>{try{render(JSON.parse(e.data))}catch{}};
+  ws.onclose=()=>{E.cd.classList.add('off');setTimeout(connect,2500)};
+  ws.onerror=()=>ws.close();
+}
+
+fetch('/state').then(r=>r.json())
+  .then(st=>{render(st);prev={g1:st.player1_games,g2:st.player2_games,
+                               f1:st.player1_frame_score,f2:st.player2_frame_score}})
+  .catch(()=>{}).finally(connect);
+</script>
+</body>
+</html>

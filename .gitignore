@@ -26,6 +26,11 @@ go.work.sum
 
 # env file
 .env
+.env.local
+
+# Built binary
+scorepoint
+scorepoint.exe
 
 # Editor/IDE
 # .idea/
