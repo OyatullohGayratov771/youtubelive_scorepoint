@@ -220,7 +220,7 @@ body{
 #logo-zone{
   position:absolute;
   left:50%;transform:translateX(-50%);
-  bottom:26px;
+  bottom:42px;
   width:186px;
   z-index:60;          /* g'olib bannerining ustida turadi */
   display:flex;flex-direction:column;align-items:center;
@@ -255,12 +255,13 @@ body{
     inset 0 0 0 2px rgba(0,0,0,.9),
     inset 0 0 34px rgba(0,0,0,.85);
 }
-/* Logo diskni to'liq qoplaydi — JPG foni medalning issiq nuriga aylanadi,
-   pastdagi suv belgisi kadrdan tashqarida qoladi */
+/* Emblemaning o'rab oluvchi doirasi rasmda: markaz (300,316), R=274px.
+   Quyidagi qiymatlar shu doirani disk markaziga tushirib, atrofida
+   ~10px bo'sh joy qoldiradi (emblema disk radiusining 88%ini egallaydi). */
 #logo-img{
-  position:absolute;left:50%;top:60%;
+  position:absolute;left:50%;top:51%;
   transform:translate(-50%,-50%);
-  width:133%;height:133%;object-fit:cover;
+  width:101%;height:101%;object-fit:cover;
 }
 
 /* Vinyetka + shisha yaltirashi */
@@ -268,7 +269,9 @@ body{
   position:absolute;inset:5px;border-radius:50%;pointer-events:none;
   background:
     linear-gradient(200deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.028) 22%,transparent 44%),
-    radial-gradient(circle at 50% 50%,transparent 62%,rgba(5,4,1,.3) 85%,rgba(3,2,1,.93) 100%);
+    /* JPG fonining yuqoridagi yorqin nurini bostiradi (toj tepasidagi yoy) */
+    linear-gradient(180deg,rgba(6,5,2,.8) 0%,rgba(6,5,2,.38) 7%,transparent 14%),
+    radial-gradient(circle at 50% 50%,transparent 70%,rgba(5,4,1,.28) 88%,rgba(3,2,1,.92) 100%);
 }
 
 /* ══════════════════════════════════════════
@@ -277,12 +280,12 @@ body{
 #race-tag{
   position:absolute;bottom:-19px;left:50%;transform:translateX(-50%);
   z-index:25;
-  display:flex;align-items:center;gap:11px;
-  height:40px;padding:0 26px;
+  display:flex;align-items:center;gap:14px;
+  height:54px;padding:0 34px;
   white-space:nowrap;
   background:linear-gradient(180deg,#1a1608 0%,#0d0b05 45%,#050402 100%);
   border:2px solid var(--gold);
-  border-radius:20px;
+  border-radius:27px;
   box-shadow:
     0 0 20px rgba(var(--gold-rgb),.55),
     0 0 46px rgba(var(--gold-rgb),.14),
@@ -292,25 +295,25 @@ body{
 }
 /* Ikki yon tomondagi oltin nuqtalar */
 #race-tag::before,#race-tag::after{
-  content:'';position:absolute;top:50%;width:5px;height:5px;
-  margin-top:-2.5px;border-radius:50%;
-  background:var(--gold-lt);box-shadow:0 0 8px rgba(var(--gold-rgb),.95);
+  content:'';position:absolute;top:50%;width:6px;height:6px;
+  margin-top:-3px;border-radius:50%;
+  background:var(--gold-lt);box-shadow:0 0 9px rgba(var(--gold-rgb),.95);
 }
-#race-tag::before{left:11px}
-#race-tag::after{right:11px}
+#race-tag::before{left:14px}
+#race-tag::after{right:14px}
 
 #race-tag .rl{
-  font-family:'Oswald',sans-serif;font-size:.74rem;font-weight:600;
-  letter-spacing:.32em;text-transform:uppercase;
+  font-family:'Oswald',sans-serif;font-size:.92rem;font-weight:600;
+  letter-spacing:.3em;text-transform:uppercase;
   color:rgba(var(--gold-rgb),.85);
   text-shadow:0 0 10px rgba(var(--gold-rgb),.45);
 }
 #rt{
   font-family:'Bebas Neue',sans-serif;
-  font-size:2.05rem;line-height:1;
+  font-size:2.85rem;line-height:1;
   font-variant-numeric:tabular-nums;
   color:var(--gold-lt);letter-spacing:.03em;
-  text-shadow:0 0 18px rgba(var(--gold-rgb),.9),0 0 40px rgba(232,144,26,.35),0 2px 0 rgba(0,0,0,.95);
+  text-shadow:0 0 20px rgba(var(--gold-rgb),.95),0 0 48px rgba(232,144,26,.4),0 2px 0 rgba(0,0,0,.95);
   transform:translateY(1px);
 }
 
@@ -421,7 +424,7 @@ body{
   <div id="logo-zone">
     <div id="medal">
       <div id="medal-rim"></div>
-      <div id="medal-disc"><img id="logo-img" src="logo.jpg" alt=""></div>
+      <div id="medal-disc"><img id="logo-img" src="logo-emblem.png" alt=""></div>
       <div id="medal-gloss"></div>
     </div>
   </div>
