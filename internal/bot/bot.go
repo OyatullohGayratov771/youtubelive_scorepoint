@@ -66,7 +66,7 @@ func (b *Bot) handleMessage(msg *tgbotapi.Message) {
 		b.sendPanel(chatID)
 		return
 	case awaitRaceTo:
-		if n, err := strconv.Atoi(text); err == nil && n > 0 && n <= 99 {
+		if n, err := strconv.Atoi(text); err == nil && n > 0 && n <= 999 {
 			b.sm.Update(func(s *state.GameState) { s.RaceTo = n; s.Winner = "" })
 		}
 		b.sessions[chatID] = idle
@@ -148,7 +148,7 @@ func (b *Bot) handleCallback(cb *tgbotapi.CallbackQuery) {
 		gs := b.sm.Get()
 		b.sessions[chatID] = awaitRaceTo
 		b.api.Send(tgbotapi.NewMessage(chatID,
-			fmt.Sprintf("Nechta ramka yutsa match g'olibi bo'ladi? (1-99)\n(hozir: %d)", gs.RaceTo)))
+			fmt.Sprintf("Nechta ramka yutsa match g'olibi bo'ladi? (1-999)\n(hozir: %d)", gs.RaceTo)))
 		return
 
 	case "reset_frame":

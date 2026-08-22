@@ -7,12 +7,35 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 
+/* ══════════════════════════════════════════
+   PALITRA — logo (Billiard King) ranglaridan
+   Oltin #F5C518 · Amber #E8901A · qora-zaytun asos
+══════════════════════════════════════════ */
+:root{
+  /* Oltin — ramka, badge, g'olib aksentlari */
+  --gold:#f5c518;
+  --gold-lt:#ffd24a;
+  --gold-dk:#c99a0c;
+  --gold-rgb:245,197,24;
+
+  /* Asos — logoning qora-zaytun foni */
+  --base:#0b0a06;
+
+  /* P1 — kuygan amber / mis (toj rangi) */
+  --p1:255,150,40;
+  --p1-name:#ffeede;
+
+  /* P2 — chuqur petrol / teal */
+  --p2:20,205,235;
+  --p2-name:#ddf8ff;
+}
+
 body{
   width:1920px;height:270px;
   background:transparent;
   overflow:hidden;
   display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:14px;
+  padding-bottom:24px;
 }
 
 /* ══════════════════════════════════════════
@@ -22,19 +45,19 @@ body{
   width:1860px;height:160px;
   position:relative;
   display:flex;align-items:stretch;
-  background:#07070a;
-  border:2px solid #c8a200;
+  background:var(--base);
+  border:2px solid var(--gold-dk);
   box-shadow:
-    0 0 18px rgba(200,162,0,.55),
-    0 0 48px rgba(200,162,0,.14),
+    0 0 18px rgba(var(--gold-rgb),.55),
+    0 0 48px rgba(var(--gold-rgb),.14),
     inset 0 0 90px rgba(0,0,0,.92);
   border-radius:4px;
   overflow:visible;
 }
 
 /* Corner L-brackets */
-.cb{position:absolute;width:20px;height:20px;border-color:#ffd700;border-style:solid;
-  box-shadow:0 0 10px rgba(255,215,0,.7);z-index:9}
+.cb{position:absolute;width:20px;height:20px;border-color:var(--gold-lt);border-style:solid;
+  box-shadow:0 0 10px rgba(var(--gold-rgb),.75);z-index:9}
 .cb.tl{top:-2px;left:-2px;border-width:3px 0 0 3px;border-radius:3px 0 0 0}
 .cb.tr{top:-2px;right:-2px;border-width:3px 3px 0 0;border-radius:0 3px 0 0}
 .cb.bl{bottom:-2px;left:-2px;border-width:0 0 3px 3px;border-radius:0 0 0 3px}
@@ -42,7 +65,7 @@ body{
 
 /* Inner shimmer line (top only) */
 .sh{position:absolute;left:6%;right:6%;height:1px;pointer-events:none;
-  background:linear-gradient(90deg,transparent,rgba(255,215,0,.22) 20%,rgba(255,215,0,.7) 50%,rgba(255,215,0,.22) 80%,transparent)}
+  background:linear-gradient(90deg,transparent,rgba(var(--gold-rgb),.22) 20%,rgba(var(--gold-rgb),.7) 50%,rgba(var(--gold-rgb),.22) 80%,transparent)}
 .sh-t{top:7px}.sh-b{display:none}
 
 /* Hex texture */
@@ -52,33 +75,34 @@ body{
     repeating-linear-gradient(-60deg,rgba(255,255,255,.013) 0 1px,transparent 0 10px)}
 
 /* ══════════════════════════════════════════
-   LEFT PANEL — RED
+   LEFT PANEL — AMBER / MIS
 ══════════════════════════════════════════ */
 #lp{
   flex:1;
   position:relative;
   display:flex;align-items:center;
   justify-content:space-between;
-  padding:0 96px 0 42px;
+  padding:0 132px 0 42px;
   clip-path:polygon(0 0,100% 0,86% 100%,0 100%);
   z-index:2;
 }
 #lp::before{
   content:'';position:absolute;inset:0;
   background:linear-gradient(105deg,
-    #1a0000 0%,#4a0000 18%,#8b0000 42%,#aa0000 60%,#6e0000 82%,#250000 100%);
+    #150900 0%,#3c1800 15%,#7a3401 35%,#a84e05 50%,#7a3502 70%,#3a1800 87%,#160900 100%);
   clip-path:inherit;
+  box-shadow:inset 0 0 55px rgba(0,0,0,.45);
 }
 #lp::after{content:'';position:absolute;top:0;left:0;width:82%;height:2px;
-  background:linear-gradient(90deg,rgba(180,0,0,.4),rgba(255,80,30,1),transparent);opacity:.7}
+  background:linear-gradient(90deg,rgba(150,70,0,.4),rgba(var(--p1),1),transparent);opacity:.75}
 
 /* Player 1 name */
 #n1{
   position:relative;z-index:2;
   font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;
-  color:#ffe8e8;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--p1-name);text-transform:uppercase;letter-spacing:.06em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;
-  text-shadow:0 0 22px rgba(255,60,0,.35),0 2px 5px rgba(0,0,0,.98);
+  text-shadow:0 0 22px rgba(var(--p1),.4),0 2px 5px rgba(0,0,0,.98);
 }
 
 /* Score group — right side of left panel */
@@ -89,25 +113,26 @@ body{
 }
 
 /* ══════════════════════════════════════════
-   RIGHT PANEL — BLUE
+   RIGHT PANEL — PETROL / TEAL
 ══════════════════════════════════════════ */
 #rp{
   flex:1;
   position:relative;
   display:flex;align-items:center;
   justify-content:space-between;
-  padding:0 42px 0 96px;
+  padding:0 42px 0 132px;
   clip-path:polygon(14% 0,100% 0,100% 100%,0 100%);
   z-index:2;
 }
 #rp::before{
   content:'';position:absolute;inset:0;
   background:linear-gradient(75deg,
-    #00061e 0%,#001560 12%,#003ab0 36%,#0055d4 55%,#1c44b8 76%,#0a1270 92%,#040b30 100%);
+    #000f14 0%,#01262f 12%,#014f61 34%,#017d96 52%,#0a5f72 74%,#012b37 92%,#000a0e 100%);
   clip-path:inherit;
+  box-shadow:inset 0 0 55px rgba(0,0,0,.45);
 }
 #rp::after{content:'';position:absolute;top:0;left:15%;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(0,140,255,1),rgba(100,185,255,.3));opacity:.7}
+  background:linear-gradient(90deg,transparent,rgba(var(--p2),1),rgba(160,240,255,.3));opacity:.75}
 
 /* Score group — left side of right panel */
 .sg-r{
@@ -120,9 +145,9 @@ body{
 #n2{
   position:relative;z-index:2;
   font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;
-  color:#e0eeff;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--p2-name);text-transform:uppercase;letter-spacing:.06em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;
-  text-shadow:0 0 22px rgba(0,120,255,.38),0 2px 5px rgba(0,0,0,.98);
+  text-shadow:0 0 22px rgba(var(--p2),.4),0 2px 5px rgba(0,0,0,.98);
   text-align:right;
 }
 
@@ -146,29 +171,34 @@ body{
 .ms{
   font-family:'Bebas Neue',sans-serif;
   font-size:6rem;line-height:.95;
+  font-variant-numeric:tabular-nums;
   color:#fff;
   text-shadow:0 2px 0 rgba(0,0,0,.9),0 0 2px rgba(0,0,0,1);
-  transition:color .3s,transform .15s cubic-bezier(.34,1.56,.64,1),text-shadow .3s;
+  transition:color .3s,transform .15s cubic-bezier(.34,1.56,.64,1),text-shadow .3s,font-size .2s;
   min-width:62px;
 }
+/* 3 xonali hisob (100+) — sig'ishi uchun kichikroq */
+.ms.d3{font-size:4.4rem}
 .sg-l .ms{text-align:right}
 .sg-r .ms{text-align:left}
 /* Panel-specific number glow */
-#lp .ms{text-shadow:0 0 28px rgba(255,90,50,.65),0 2px 0 rgba(0,0,0,.9)}
-#rp .ms{text-shadow:0 0 28px rgba(50,150,255,.65),0 2px 0 rgba(0,0,0,.9)}
+#lp .ms{text-shadow:0 0 28px rgba(var(--p1),.7),0 2px 0 rgba(0,0,0,.9)}
+#rp .ms{text-shadow:0 0 28px rgba(var(--p2),.65),0 2px 0 rgba(0,0,0,.9)}
 
 /* Frame score — SMALLER but clearly visible */
 .fs{
   font-family:'Bebas Neue',sans-serif;
   font-size:2.4rem;line-height:1;
+  font-variant-numeric:tabular-nums;
   color:rgba(255,255,255,.9);
-  transition:color .3s,transform .12s cubic-bezier(.34,1.56,.64,1);
+  transition:color .3s,transform .12s cubic-bezier(.34,1.56,.64,1),font-size .2s;
   min-width:44px;
 }
+.fs.d3{font-size:2rem}
 .sg-l .fs{text-align:right}
 .sg-r .fs{text-align:left}
-#lp .fs{text-shadow:0 0 14px rgba(255,90,50,.5),0 1px 0 rgba(0,0,0,.9)}
-#rp .fs{text-shadow:0 0 14px rgba(50,150,255,.5),0 1px 0 rgba(0,0,0,.9)}
+#lp .fs{text-shadow:0 0 14px rgba(var(--p1),.55),0 1px 0 rgba(0,0,0,.9)}
+#rp .fs{text-shadow:0 0 14px rgba(var(--p2),.5),0 1px 0 rgba(0,0,0,.9)}
 
 /* "pts" suffix for frame */
 .pts{
@@ -178,38 +208,110 @@ body{
 }
 
 /* Animations */
-.bump-m{transform:scale(1.28)!important;color:#ffd700!important;
-  text-shadow:0 0 36px rgba(255,215,0,.9)!important}
-.bump-f{transform:scale(1.22)!important;color:#ffe566!important;
-  text-shadow:0 0 18px rgba(255,215,0,.7)!important}
-.gold{color:#ffd700!important;text-shadow:0 0 28px rgba(255,215,0,.8)!important}
+.bump-m{transform:scale(1.28)!important;color:var(--gold-lt)!important;
+  text-shadow:0 0 36px rgba(var(--gold-rgb),.95)!important}
+.bump-f{transform:scale(1.22)!important;color:#ffe27a!important;
+  text-shadow:0 0 18px rgba(var(--gold-rgb),.75)!important}
+.gold{color:var(--gold-lt)!important;text-shadow:0 0 28px rgba(var(--gold-rgb),.85)!important}
 
 /* ══════════════════════════════════════════
-   CENTER LOGO — floats above bar
+   MARKAZIY MEDAL — logo oltin gardish ichida
 ══════════════════════════════════════════ */
 #logo-zone{
   position:absolute;
   left:50%;transform:translateX(-50%);
-  bottom:14px;
-  width:210px;
-  z-index:20;
+  bottom:26px;
+  width:186px;
+  z-index:60;          /* g'olib bannerining ustida turadi */
   display:flex;flex-direction:column;align-items:center;
   pointer-events:none;
 }
-#logo-img{
-  display:block;width:210px;height:210px;object-fit:contain;
-  -webkit-mask-image:radial-gradient(circle closest-side at 50% 50%,black 86%,transparent 100%);
-  mask-image:radial-gradient(circle closest-side at 50% 50%,black 86%,transparent 100%);
-  filter:drop-shadow(0 0 16px rgba(255,215,0,.55)) drop-shadow(0 0 38px rgba(255,200,0,.14));
+
+#medal{
+  position:relative;width:186px;height:186px;border-radius:50%;
+  box-shadow:
+    0 0 0 3px rgba(6,5,2,.94),          /* panellardan ajratuvchi qora kontur */
+    0 0 26px rgba(var(--gold-rgb),.45),
+    0 0 66px rgba(var(--gold-rgb),.15),
+    0 10px 26px rgba(0,0,0,.9);
 }
 
-/* Race-to label (inside bar, below logo area) */
+/* Metall oltin gardish — sekin aylanuvchi yorug'lik */
+#medal-rim{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 140deg,
+    #6b4a06 0deg,#f5c518 42deg,#fff3b0 72deg,#e0a812 104deg,
+    #79540a 160deg,#c99a0c 212deg,#ffe27a 252deg,#d9a70f 292deg,
+    #5c3f04 338deg,#6b4a06 360deg);
+  animation:rim 18s linear infinite;
+}
+@keyframes rim{to{transform:rotate(360deg)}}
+
+/* Ichki qora disk — logo shu yerda */
+#medal-disc{
+  position:absolute;inset:5px;border-radius:50%;overflow:hidden;
+  background:radial-gradient(circle at 50% 44%,#1c1809 0%,#0b0a04 68%,#050402 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(0,0,0,.9),
+    inset 0 0 34px rgba(0,0,0,.85);
+}
+/* Logo diskni to'liq qoplaydi — JPG foni medalning issiq nuriga aylanadi,
+   pastdagi suv belgisi kadrdan tashqarida qoladi */
+#logo-img{
+  position:absolute;left:50%;top:60%;
+  transform:translate(-50%,-50%);
+  width:133%;height:133%;object-fit:cover;
+}
+
+/* Vinyetka + shisha yaltirashi */
+#medal-gloss{
+  position:absolute;inset:5px;border-radius:50%;pointer-events:none;
+  background:
+    linear-gradient(200deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,.028) 22%,transparent 44%),
+    radial-gradient(circle at 50% 50%,transparent 62%,rgba(5,4,1,.3) 85%,rgba(3,2,1,.93) 100%);
+}
+
+/* ══════════════════════════════════════════
+   RACE-TO BADGE — barning pastki chetida turadi
+══════════════════════════════════════════ */
 #race-tag{
-  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
-  font-family:'Oswald',sans-serif;font-size:.7rem;font-weight:600;
-  letter-spacing:.45em;color:rgba(210,172,0,.85);
-  text-transform:uppercase;white-space:nowrap;
-  text-shadow:0 0 12px rgba(200,162,0,.5);
+  position:absolute;bottom:-19px;left:50%;transform:translateX(-50%);
+  z-index:25;
+  display:flex;align-items:center;gap:11px;
+  height:40px;padding:0 26px;
+  white-space:nowrap;
+  background:linear-gradient(180deg,#1a1608 0%,#0d0b05 45%,#050402 100%);
+  border:2px solid var(--gold);
+  border-radius:20px;
+  box-shadow:
+    0 0 20px rgba(var(--gold-rgb),.55),
+    0 0 46px rgba(var(--gold-rgb),.14),
+    0 5px 16px rgba(0,0,0,.95),
+    inset 0 1px 0 rgba(var(--gold-rgb),.22),
+    inset 0 0 22px rgba(0,0,0,.9);
+}
+/* Ikki yon tomondagi oltin nuqtalar */
+#race-tag::before,#race-tag::after{
+  content:'';position:absolute;top:50%;width:5px;height:5px;
+  margin-top:-2.5px;border-radius:50%;
+  background:var(--gold-lt);box-shadow:0 0 8px rgba(var(--gold-rgb),.95);
+}
+#race-tag::before{left:11px}
+#race-tag::after{right:11px}
+
+#race-tag .rl{
+  font-family:'Oswald',sans-serif;font-size:.74rem;font-weight:600;
+  letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(var(--gold-rgb),.85);
+  text-shadow:0 0 10px rgba(var(--gold-rgb),.45);
+}
+#rt{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.05rem;line-height:1;
+  font-variant-numeric:tabular-nums;
+  color:var(--gold-lt);letter-spacing:.03em;
+  text-shadow:0 0 18px rgba(var(--gold-rgb),.9),0 0 40px rgba(232,144,26,.35),0 2px 0 rgba(0,0,0,.95);
+  transform:translateY(1px);
 }
 
 /* ══════════════════════════════════════════
@@ -217,34 +319,37 @@ body{
 ══════════════════════════════════════════ */
 #bar.w1 #lp::before{
   background:linear-gradient(108deg,
-    #1c0000 0%,#5e0000 14%,#b20000 38%,#d60000 56%,#8c0000 78%,#380000 100%)}
-#bar.w1 #n1{text-shadow:0 0 30px rgba(255,80,0,.65),0 2px 6px rgba(0,0,0,.9)}
+    #220e00 0%,#5c2600 14%,#b25200 38%,#e07a0a 56%,#8c4200 78%,#361800 100%)}
+#bar.w1 #n1{text-shadow:0 0 30px rgba(var(--p1),.75),0 2px 6px rgba(0,0,0,.9)}
 
 #bar.w2 #rp::before{
   background:linear-gradient(72deg,
-    #001033 0%,#002277 10%,#0052ee 32%,#0066ff 52%,#2255dd 74%,#0d1a88 90%,#060d44 100%)}
-#bar.w2 #n2{text-shadow:0 0 30px rgba(0,150,255,.65),0 2px 6px rgba(0,0,0,.9)}
+    #001c26 0%,#02384a 10%,#0277a0 32%,#06b0cc 52%,#1a86a0 74%,#0a4557 90%,#051d26 100%)}
+#bar.w2 #n2{text-shadow:0 0 30px rgba(var(--p2),.7),0 2px 6px rgba(0,0,0,.9)}
 
 /* ══════════════════════════════════════════
    WINNER BANNER (slides from top)
 ══════════════════════════════════════════ */
 #wb{
   position:fixed;top:0;left:0;right:0;height:74px;
-  display:flex;align-items:center;justify-content:center;gap:22px;
-  background:linear-gradient(90deg,transparent 0%,rgba(4,4,4,.93) 10%,rgba(4,4,4,.97) 90%,transparent 100%);
-  border-bottom:1px solid rgba(255,215,0,.28);
+  /* Markazda 200px bo'sh ustun — medal shu darchada turadi */
+  display:grid;grid-template-columns:1fr 200px 1fr;align-items:center;
+  background:linear-gradient(90deg,transparent 0%,rgba(8,7,3,.93) 10%,rgba(8,7,3,.97) 90%,transparent 100%);
+  border-bottom:1px solid rgba(var(--gold-rgb),.3);
   opacity:0;transform:translateY(-100%);
   transition:opacity .55s,transform .55s cubic-bezier(.34,1.56,.64,1);
   z-index:50;
 }
 #wb.on{opacity:1;transform:translateY(0)}
-#wi{font-size:2.2rem;animation:ti .9s ease-in-out infinite alternate;line-height:1}
+.wi{font-size:2rem;animation:ti .9s ease-in-out infinite alternate;line-height:1}
 @keyframes ti{to{transform:scale(1.2) rotate(8deg)}}
-#wg{display:flex;flex-direction:column;align-items:center;gap:2px}
-#wl{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:400;letter-spacing:.55em;color:#b8920a;text-transform:uppercase}
-#wn{font-family:'Oswald',sans-serif;font-size:2.1rem;font-weight:700;letter-spacing:.1em;color:#ffd700;text-transform:uppercase;
+.wside{display:flex;align-items:center;gap:18px}
+.wside.l{grid-column:1;justify-self:end;padding-right:30px}
+.wside.r{grid-column:3;justify-self:start;padding-left:30px}
+#wl{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:400;letter-spacing:.55em;color:var(--gold-dk);text-transform:uppercase}
+#wn{font-family:'Oswald',sans-serif;font-size:2.1rem;font-weight:700;letter-spacing:.1em;color:var(--gold-lt);text-transform:uppercase;
   animation:gl 1s ease-in-out infinite alternate}
-@keyframes gl{from{text-shadow:0 0 10px rgba(255,215,0,.3)} to{text-shadow:0 0 42px rgba(255,215,0,.95),0 0 80px rgba(255,200,0,.22)}}
+@keyframes gl{from{text-shadow:0 0 10px rgba(var(--gold-rgb),.3)} to{text-shadow:0 0 42px rgba(var(--gold-rgb),.95),0 0 80px rgba(232,144,26,.25)}}
 
 /* Connection dot */
 #cd{position:fixed;bottom:7px;right:9px;width:8px;height:8px;border-radius:50%;
@@ -256,12 +361,14 @@ body{
 
 <!-- Winner banner -->
 <div id="wb">
-  <span id="wi">🏆</span>
-  <div id="wg">
+  <div class="wside l">
+    <span class="wi">🏆</span>
     <span id="wl">G ' O L I B</span>
-    <span id="wn">PLAYER</span>
   </div>
-  <span id="wi">🏆</span>
+  <div class="wside r">
+    <span id="wn">PLAYER</span>
+    <span class="wi">🏆</span>
+  </div>
 </div>
 
 <!-- SCOREBOARD BAR -->
@@ -310,10 +417,19 @@ body{
     <div id="n2">TEAM NAME</div>
   </div>
 
-  <!-- CENTER LOGO -->
+  <!-- MARKAZIY MEDAL -->
   <div id="logo-zone">
-    <img id="logo-img" src="logo.jpg" alt="">
-    <div id="race-tag">RACE TO <span id="rt">7</span></div>
+    <div id="medal">
+      <div id="medal-rim"></div>
+      <div id="medal-disc"><img id="logo-img" src="logo.jpg" alt=""></div>
+      <div id="medal-gloss"></div>
+    </div>
+  </div>
+
+  <!-- RACE TO badge — bar pastida, markazda -->
+  <div id="race-tag">
+    <span class="rl">RACE TO</span>
+    <span id="rt">7</span>
   </div>
 
 </div>
@@ -342,6 +458,10 @@ function render(st){
   E.fs2.textContent= st.player2_frame_score;
   E.rt.textContent = st.race_to;
 
+  // 3+ xonali hisoblarda shrift kichrayadi (100..999)
+  fit(E.s1,st.player1_games); fit(E.s2,st.player2_games);
+  fit(E.fs1,st.player1_frame_score); fit(E.fs2,st.player2_frame_score);
+
   // Animate on change
   if(st.player1_games!==prev.g1) bump(E.s1,'bump-m');
   if(st.player2_games!==prev.g2) bump(E.s2,'bump-m');
@@ -362,6 +482,10 @@ function render(st){
   } else {
     E.wb.classList.remove('on');
   }
+}
+
+function fit(el,v){
+  el.classList.toggle('d3',String(v).length>=3);
 }
 
 function bump(el,cls){
